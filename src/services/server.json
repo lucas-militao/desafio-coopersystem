@@ -1,0 +1,47 @@
+{
+  "carros": [
+    {
+      "id": "1",
+      "nome": "chevrolet chevelle malibu",
+      "km_por_galao": 18,
+      "cilindros": 8,
+      "cavalor_de_forca": 130,
+      "peso": 3504,
+      "aceleracao": 12,
+      "ano": "1970-01-01",
+      "origem": "USA"
+
+    },
+    {
+      "id": "2",
+      "nome": "chevrolet chevelle malibu",
+      "km_por_galao": 18,
+      "cilindros": 8,
+      "cavalor_de_forca": 130,
+      "peso": 3504,
+      "aceleracao": 12,
+      "ano": "1970-01-01",
+      "origem": "USA"
+
+    },
+    {
+      "id": "3",
+      "nome": "chevrolet chevelle malibu",
+      "km_por_galao": 18,
+      "cilindros": 8,
+      "cavalor_de_forca": 130,
+      "peso": 3504,
+      "aceleracao": 12,
+      "ano": "1970-01-01",
+      "origem": "USA"
+
+    }
+  ],
+
+  "marcas": [
+    {
+      "nome": "Volkswagen",
+      "origem": "DEU"
+    }
+  ]
+}
