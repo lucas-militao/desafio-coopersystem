@@ -14,6 +14,6 @@ export const InputsContainer = styled.div`
   display: flex;
 
   flex-direction: column;
-`;
 
-export const Input = styled.input``;
+  margin-bottom: 8px;
+`;
