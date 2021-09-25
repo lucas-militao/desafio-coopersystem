@@ -1,9 +1,10 @@
 import React from 'react';
+import { Home } from './screens/Home';
 import { RegisterCar } from './screens/RegisterCar';
 
 function App() {
   return (
-    <RegisterCar />
+    <Home />
   );
 }
 

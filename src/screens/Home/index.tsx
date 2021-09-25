@@ -21,6 +21,17 @@ interface CarProps {
 export function Home() {
   const [carros, setCarros] = useState<CarProps[]>([] as CarProps[]);
 
+  async function handleRemoveItem(id: string) {
+    try {
+      await api.delete(`/carros/${id}`);
+
+      const carrosListFormatted = carros.filter(item => item.id !== id);
+      setCarros(carrosListFormatted);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     async function fetchCars() {
       try {
@@ -36,7 +47,10 @@ export function Home() {
 
   return (
     <Container>
-      <CarList data={carros}/>
+      <CarList 
+        data={carros}
+        removeItem={handleRemoveItem}
+      />
     </Container>
   )
 }

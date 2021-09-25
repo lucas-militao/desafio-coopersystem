@@ -19,10 +19,12 @@ interface CarProps {
 
 interface Props {
   data: CarProps[];
+  removeItem(id: string): Promise<void>;
 }
 
 export function CarList({
-  data
+  data,
+  removeItem
 }: Props) {
 
   return(
@@ -30,7 +32,7 @@ export function CarList({
       <Table striped bordered responsive="md">
         <thead>
           <tr>
-            <th>id</th>
+            <th>#</th>
             <th>Nome</th>
             <th>Origem</th>
             <th>Ano</th>
@@ -41,10 +43,10 @@ export function CarList({
 
         <tbody>
           {  
-            data.map(item => {
+            data.map((item, index) => {
               return (
                 <tr key={item.id}>
-                  <td>{item.id}</td>
+                  <td>{index}</td>
                   <td>{item.nome}</td>
                   <td>{item.origem}</td>
                   <td>{new Date(item.ano).getFullYear()}</td>
@@ -56,8 +58,10 @@ export function CarList({
                   </td>
                   <td>
                     <Button 
-                      variant="primary">
-                        Excluir
+                      variant="secondary"
+                      onClick={() => removeItem(item.id)}
+                    >
+                      Excluir
                     </Button>
                   </td>
                 </tr>
