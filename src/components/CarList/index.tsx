@@ -10,7 +10,7 @@ interface CarProps {
   nome: string;
   km_por_galao: number;
   cilindros: number;
-  cavalor_de_forca: number;
+  cavalos_de_forca: number;
   peso: number;
   aceleracao: number;
   ano: string;
@@ -21,17 +21,19 @@ interface Props {
   data: CarProps[];
   removeItem(id: string): Promise<void>;
   editItem(id: string): void;
+  showCarDetails(id: string): void;
 }
 
 export function CarList({
   data,
   removeItem,
-  editItem
+  editItem,
+  showCarDetails
 }: Props) {
 
   return(
     <Container>
-      <Table striped bordered responsive="md">
+      <Table striped bordered hover responsive="md">
         <thead>
           <tr>
             <th>#</th>
@@ -47,7 +49,7 @@ export function CarList({
           {  
             data.map((item, index) => {
               return (
-                <tr key={item.id}>
+                <tr key={item.id} onClick={() => {showCarDetails(item.id)}}>
                   <td>{index}</td>
                   <td>{item.nome}</td>
                   <td>{item.origem}</td>

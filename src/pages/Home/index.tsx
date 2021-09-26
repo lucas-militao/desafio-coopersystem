@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 
 import { CarList } from "../../components/CarList";
+import { ModalCarDetails } from "../../components/ModalCarDetails";
 import { SearchForm } from "../../components/SearchForm";
 
 import api from "../../services/api";
@@ -15,7 +16,7 @@ interface CarProps {
   nome: string;
   km_por_galao: number;
   cilindros: number;
-  cavalor_de_forca: number;
+  cavalos_de_forca: number;
   peso: number;
   aceleracao: number;
   ano: string;
@@ -27,8 +28,23 @@ type filterOptionsType = 'nome' | 'origem';
 export function Home() {
   const [carros, setCarros] = useState<CarProps[]>([] as CarProps[]);
   const [carrosFiltered, setCarrosFiltered] = useState<CarProps[]>([] as CarProps[]);
+  const [carDetails, setCarDetails] = useState<CarProps>({} as CarProps);
+  const [showModal, setShowModal] = useState(false); 
 
   const history = useHistory();
+
+  function handleShowModalCarDetails(id: string) {
+    setCarDetails(
+      carros.filter(item => item.id === id)[0]
+    );
+
+    setShowModal(true);
+  }
+
+  function handleHideModal() {
+    setShowModal(false);
+    setCarDetails({} as CarProps);
+  }
 
   function handleNavigateToEditFormCar(id: string) {
     const car = carros.filter(carro => carro.id === id)[0];
@@ -87,6 +103,13 @@ export function Home() {
         data={carrosFiltered}
         removeItem={handleRemoveItem}
         editItem={handleNavigateToEditFormCar}
+        showCarDetails={handleShowModalCarDetails}
+      />
+
+      <ModalCarDetails
+        car={carDetails}
+        showModal={showModal}
+        hideModal={handleHideModal}
       />
     </Container>
   )

@@ -3,7 +3,7 @@
     {
       "id": "1",
       "nome": "Moto do homem-aranha",
-      "km_por_galao": 18,
+      "km_por_galao": "30",
       "cilindros": 8,
       "cavalos_de_forca": 130,
       "peso": 3504,

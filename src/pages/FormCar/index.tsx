@@ -60,11 +60,15 @@ export function FormCar() {
         });
 
         setIsEditing(false);
+        history.location.state = null;
+        history.goBack();
       } else {
         await api.post('/carros', {
           id: uuid(),
           ...formData
         });
+
+        history.goBack();
       }
     } catch (error) {
       console.log(error);
