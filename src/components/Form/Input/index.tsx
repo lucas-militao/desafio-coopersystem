@@ -34,7 +34,7 @@ export function Input({
           <Form.Group>
             <Form.Label>{title}</Form.Label>
             <Form.Control
-              name="nome"
+              name={name}
               onChange={onChange}
               value={value}
               autocomplete="off"

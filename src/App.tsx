@@ -1,6 +1,6 @@
 import React from 'react';
-import { Home } from './screens/Home';
-import { RegisterCar } from './screens/RegisterCar';
+import { Home } from './pages/Home';
+import { RegisterCar } from './pages/RegisterCar';
 
 function App() {
   return (

@@ -1,78 +1,62 @@
-import React, { FormEventHandler, useState } from "react";
-import { Col, Form, Row, Button, InputGroup, FormControl, ButtonGroup, FormCheckProps } from "react-bootstrap";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { Col, Row, Button, Form } from "react-bootstrap";
 
 import {
-  SearchFormContainer
+  Container
 } from './styles';
 
-interface RadioGroupProps {
-  option: 'nome' | 'origem'
-}
+type filterOptionsType = 'nome' | 'origem';
 
 interface Props {
-  filterList(nome: string, origem: string): Promise<void>
+  filterList: (filterOption: filterOptionsType, filterSearchInput: string) => Promise<void> 
 }
 
 export function SearchForm({
   filterList
 }: Props) {
-  const {
-    control,
-    handleSubmit
-  } = useForm();
-  const [filterOption, setFilterOption] = useState('nome');
-
-  const isRadioSelected = (value: string): boolean => filterOption === value;
-
-  function handleRadioClick(e: React.ChangeEvent<HTMLInputElement>) {
-    setFilterOption(String(e.currentTarget.value));
-    console.log(filterOption)
-  };
-
+  const [filterOption, setFilterOption] = useState<filterOptionsType>('nome');
+  const [filterSearchInput, setFilterSearchInput] = useState('');
+  
   return(
-    <Form>
-      <Row className="align-items-center">
-        <Col xs="auto">
-          <Form.Label htmlFor="inlineFormInput" visuallyHidden>
-            Filtro
-          </Form.Label>
-          <Form.Control
-            className="mb-2"
-            id="inlineFormInput"
-          />
-        </Col>
+    <Container>
+        <Row className="align-items-center">
+          <Col>
+            <Form.Group>
+              <Form.Label>Filtro:</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="Digite sua pesquisa"
+                value={filterSearchInput}
+                onChange={(e) => setFilterSearchInput(e.currentTarget.value)}
+              />
+            </Form.Group>
+          </Col>
 
-        <Col xs="auto">
-          <Form.Check 
-            checked={isRadioSelected("nome")}
-            onChange={e => handleRadioClick(e)}
-            type="radio"
-            id="radio-button-origem"
-            label="Nome"
-            value="nome"
-            name="filter"
-          />
-          <div> </div>
-          <Form.Check 
-            checked={isRadioSelected("origem")}
-            onChange={e => handleRadioClick(e)}
-            type="radio"
-            id="radio-button-origem"
-            label="Origem"
-            value="origem"
-            name="filter"
-          />
-        </Col>
+          <Col>
+            <Form.Check
+              type="radio"
+              label="Nome"
+              name="filterOption"
+              value="nome"
+              onChange={e => setFilterOption(e.currentTarget.value as filterOptionsType)}
+            />
+            
+            <Form.Check
+              type="radio"
+              label="Origem"
+              name="filterOption"
+              value="origem"
+              onChange={e => setFilterOption(e.currentTarget.value as filterOptionsType)}
+            />
+          </Col>
 
-        <Col xs="auto">
-          <Button className="mb-2">
-            Filtrar
-          </Button>
-        </Col>
-
-        
-      </Row>
-    </Form>
+          <Col>
+            <Button onClick={() => filterList(filterOption, filterSearchInput)}>
+              Filtrar
+            </Button>
+          </Col>
+        </Row>
+    </Container>
   );
 }

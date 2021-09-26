@@ -21,6 +21,8 @@ interface CarProps {
   origem: string;
 }
 
+type filterOptionsType = 'nome' | 'origem';
+
 export function Home() {
   const [carros, setCarros] = useState<CarProps[]>([] as CarProps[]);
   const [carrosFiltered, setCarrosFiltered] = useState<CarProps[]>([] as CarProps[]);
@@ -36,9 +38,19 @@ export function Home() {
     }
   }
 
-  async function handleFilterList(nome: string, origem: string) {
-    if (nome!! && origem!!) {
-      
+  async function handleFilterList(filterOption: filterOptionsType, filterSearchInput: string) {
+    if (filterOption === 'nome') {
+      setCarrosFiltered(carros.filter(carro => 
+        carro.nome.toLowerCase().includes(filterSearchInput.toLowerCase())));
+
+    } else if (filterOption === 'origem') {
+      setCarrosFiltered(carros.filter(carro => 
+        carro.origem.toLowerCase() === filterSearchInput.toLowerCase()));
+
+    } 
+    
+    if(filterSearchInput === '') {
+      setCarrosFiltered(carros);
     }
   }
 
@@ -58,10 +70,12 @@ export function Home() {
 
   return (
     <Container>
-      <SearchForm filterList={handleFilterList}/>
+      <SearchForm 
+        filterList={handleFilterList}
+      />
 
       <CarList 
-        data={carros}
+        data={carrosFiltered}
         removeItem={handleRemoveItem}
       />
     </Container>

@@ -1,12 +1,10 @@
 import { Form } from "react-bootstrap";
 import styled from "styled-components";
 
-export const SearchFormContainer = styled(Form)`
+export const Container = styled(Form)`
   display: flex;
+  width: 100%;
 
-  flex-direction: row;
   align-items: center;
-  
-
-  
+  justify-content: center;
 `;
