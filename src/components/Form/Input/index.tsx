@@ -2,12 +2,20 @@ import React, { InputHTMLAttributes } from "react";
 
 import { Control, Controller } from "react-hook-form";
 
-import { Form, FormControl, FormControlProps } from "react-bootstrap";
+import { 
+  Form, 
+  FormControl, 
+  FormControlProps 
+} from "react-bootstrap";
+
+import {
+  Container
+} from './styles';
 
 interface Props extends FormControlProps{
   control: Control;
   name: string;
-  title: string;
+  title?: string;
 }
 
 export function Input({
@@ -18,24 +26,26 @@ export function Input({
 }: Props) {
 
   return(
-    <Controller
-      name={name}
-      control={control}
-      render={({ field: { onChange, value } }) => (
-        <Form.Group>
-          <Form.Label>{title}</Form.Label>
-          <Form.Control
-            name="nome"
-            onChange={onChange}
-            value={value}
-            autocomplete="off"
-            {...rest}
-          />
-          <FormControl.Feedback>
-            
-          </FormControl.Feedback>
-        </Form.Group>
-      )}
-    />
+    <Container>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <Form.Group>
+            <Form.Label>{title}</Form.Label>
+            <Form.Control
+              name="nome"
+              onChange={onChange}
+              value={value}
+              autocomplete="off"
+              {...rest}
+            />
+            <FormControl.Feedback>
+              
+            </FormControl.Feedback>
+          </Form.Group>
+        )}
+      />
+    </Container>
   )
 }

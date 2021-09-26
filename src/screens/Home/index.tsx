@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+
 import { CarList } from "../../components/CarList";
+import { SearchForm } from "../../components/SearchForm";
+
 import api from "../../services/api";
 
 import {
-  Container
+  Container,
 } from './styles';
 
 interface CarProps {
@@ -20,6 +23,7 @@ interface CarProps {
 
 export function Home() {
   const [carros, setCarros] = useState<CarProps[]>([] as CarProps[]);
+  const [carrosFiltered, setCarrosFiltered] = useState<CarProps[]>([] as CarProps[]);
 
   async function handleRemoveItem(id: string) {
     try {
@@ -32,11 +36,18 @@ export function Home() {
     }
   }
 
+  async function handleFilterList(nome: string, origem: string) {
+    if (nome!! && origem!!) {
+      
+    }
+  }
+
   useEffect(() => {
     async function fetchCars() {
       try {
         const response = await api.get('/carros');
         setCarros(response.data);
+        setCarrosFiltered(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -47,6 +58,8 @@ export function Home() {
 
   return (
     <Container>
+      <SearchForm filterList={handleFilterList}/>
+
       <CarList 
         data={carros}
         removeItem={handleRemoveItem}
