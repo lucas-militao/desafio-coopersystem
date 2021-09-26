@@ -20,11 +20,13 @@ interface CarProps {
 interface Props {
   data: CarProps[];
   removeItem(id: string): Promise<void>;
+  editItem(id: string): void;
 }
 
 export function CarList({
   data,
-  removeItem
+  removeItem,
+  editItem
 }: Props) {
 
   return(
@@ -52,11 +54,14 @@ export function CarList({
                   <td>{new Date(item.ano).getFullYear()}</td>
                   <td>
                     <Button
-                      variant="primary">
+                      variant="primary"
+                      onClick={() => editItem(item.id)}
+                    >
                         Editar
                     </Button>
                   </td>
                   <td>
+                    
                     <Button 
                       variant="secondary"
                       onClick={() => removeItem(item.id)}

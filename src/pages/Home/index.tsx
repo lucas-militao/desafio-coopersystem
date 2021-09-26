@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 
 import { CarList } from "../../components/CarList";
 import { SearchForm } from "../../components/SearchForm";
@@ -26,6 +27,14 @@ type filterOptionsType = 'nome' | 'origem';
 export function Home() {
   const [carros, setCarros] = useState<CarProps[]>([] as CarProps[]);
   const [carrosFiltered, setCarrosFiltered] = useState<CarProps[]>([] as CarProps[]);
+
+  const history = useHistory();
+
+  function handleNavigateToEditFormCar(id: string) {
+    const car = carros.filter(carro => carro.id === id)[0];
+
+    history.push('/formcar', car);
+  }
 
   async function handleRemoveItem(id: string) {
     try {
@@ -77,6 +86,7 @@ export function Home() {
       <CarList 
         data={carrosFiltered}
         removeItem={handleRemoveItem}
+        editItem={handleNavigateToEditFormCar}
       />
     </Container>
   )
