@@ -1,35 +1,28 @@
 import React from "react";
-import { Button, Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 
 import {
   Container
-} from './style';
+} from './styles';
 
-interface CarProps {
+interface BrandProps {
   id: string;
   nome: string;
-  km_por_galao: number;
-  cilindros: number;
-  cavalos_de_forca: number;
-  peso: number;
-  aceleracao: number;
-  ano: string;
   origem: string;
 }
 
 interface Props {
-  data: CarProps[];
-  removeItem(id: string): Promise<void>;
-  editItem(id: string): void;
-  showCarDetails(id: string): void;
+  data: BrandProps[];
+  deleteItem: (id: string) => Promise<void>;
+  showItemDetails: (id: string) => void;
 }
 
-export function CarList({
+export function BrandList({
   data,
-  removeItem,
-  editItem,
-  showCarDetails
+  deleteItem,
+  showItemDetails
 }: Props) {
+
 
   return(
     <Container>
@@ -39,33 +32,31 @@ export function CarList({
             <th>#</th>
             <th>Nome</th>
             <th>Origem</th>
-            <th>Ano</th>
             <th></th>
             <th></th>
           </tr>
         </thead>
 
         <tbody>
-          {  
+          {
             data.map((item, index) => {
-              return (
+              return(
                 <tr key={item.id}>
                   <td>{index}</td>
                   <td>{item.nome}</td>
                   <td>{item.origem}</td>
-                  <td>{new Date(item.ano).getFullYear()}</td>
                   <td>
-                    <Button 
+                    <Button
                       variant="primary"
-                      onClick={() => {showCarDetails(item.id)}}
+                      onClick={() => {showItemDetails(item.id)}}
                     >
-                      Detalhes
+                        Detalhes
                     </Button>
                   </td>
                   <td>
                     <Button
                       variant="primary"
-                      onClick={() => editItem(item.id)}
+                      onClick={() => {}}
                     >
                         Editar
                     </Button>
@@ -73,13 +64,13 @@ export function CarList({
                   <td>
                     <Button 
                       variant="secondary"
-                      onClick={() => removeItem(item.id)}
+                      onClick={() => {deleteItem(item.id)}}
                     >
                       Excluir
                     </Button>
                   </td>
                 </tr>
-              )
+              );
             })
           }
         </tbody>

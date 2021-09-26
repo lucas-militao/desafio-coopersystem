@@ -11,7 +11,3 @@ export const Container = styled.div`
 
   flex-direction: column;
 `;
-
-export const FilterInputsContainer = styled.div`
-  display: flex;
-`;

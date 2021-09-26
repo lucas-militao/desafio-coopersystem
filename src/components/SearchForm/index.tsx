@@ -8,7 +8,7 @@ import {
 type filterOptionsType = 'nome' | 'origem';
 
 interface Props {
-  filterList: (filterOption: filterOptionsType, filterSearchInput: string) => Promise<void> 
+  filterList: (filterOption: filterOptionsType, filterSearchInput: string) => void;
 }
 
 export function SearchForm({
@@ -40,6 +40,7 @@ export function SearchForm({
               name="filterOption"
               value="nome"
               onChange={e => setFilterOption(e.currentTarget.value as filterOptionsType)}
+              defaultChecked
             />
             
             <Form.Check

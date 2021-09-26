@@ -58,8 +58,6 @@ export function FormCar() {
           id: carEditing.id,
           ...formData
         });
-
-        setIsEditing(false);
         history.location.state = null;
         history.goBack();
       } else {
@@ -75,11 +73,16 @@ export function FormCar() {
     }
   }
 
+  function handleCancelEditing() {
+    setCarEditing({} as CarProps);
+    setIsEditing(false);
+    history.push('/carros');
+  }
+
   useEffect(() => {
     function updateCarInfo() {
       const car = history.location.state as CarProps;
-
-      if (car !== null) {
+      if (!!car) {
         setIsEditing(true);
         setCarEditing(car);
 
@@ -155,8 +158,16 @@ export function FormCar() {
         <Button 
           variant="primary"
           onClick={handleSubmit(handleRegisterCar)}
+          style={{ marginRight: 8 }}
         >
           Salvar
+        </Button>
+
+        <Button 
+          variant="secondary"
+          onClick={handleCancelEditing}
+        >
+          Cancel
         </Button>
       </Form>
     </Container>

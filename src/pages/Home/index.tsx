@@ -49,7 +49,7 @@ export function Home() {
   function handleNavigateToEditFormCar(id: string) {
     const car = carros.filter(carro => carro.id === id)[0];
 
-    history.push('/formcar', car);
+    history.push('/registercarros', car);
   }
 
   async function handleRemoveItem(id: string) {
@@ -58,12 +58,13 @@ export function Home() {
 
       const carrosListFormatted = carros.filter(item => item.id !== id);
       setCarros(carrosListFormatted);
+      setCarrosFiltered(carrosListFormatted);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async function handleFilterList(filterOption: filterOptionsType, filterSearchInput: string) {
+  function handleFilterList(filterOption: filterOptionsType, filterSearchInput: string) {
     if (filterOption === 'nome') {
       setCarrosFiltered(carros.filter(carro => 
         carro.nome.toLowerCase().includes(filterSearchInput.toLowerCase())));
@@ -95,10 +96,10 @@ export function Home() {
 
   return (
     <Container>
-      <SearchForm 
+      <SearchForm
         filterList={handleFilterList}
       />
-
+      <br />
       <CarList 
         data={carrosFiltered}
         removeItem={handleRemoveItem}

@@ -1,43 +1,37 @@
 {
   "carros": [
     {
-      "id": "1",
-      "nome": "Moto do homem-aranha",
-      "km_por_galao": "30",
-      "cilindros": 8,
-      "cavalos_de_forca": 130,
-      "peso": 3504,
-      "aceleracao": 12,
-      "ano": "1970-01-01",
-      "origem": "USA"
-    },
-    {
-      "id": "3",
-      "nome": "chevrolet chevelle malibu",
-      "km_por_galao": 18,
-      "cilindros": 8,
-      "cavalos_de_forca": 130,
-      "peso": 3504,
-      "aceleracao": 12,
-      "ano": "1970-01-01",
-      "origem": "USA"
-    },
-    {
-      "id": "41c7f7b4-7a0a-4dfb-af7d-57c828b5122f",
-      "nome": "Carro do Batman",
-      "km_por_galao": "1",
-      "cilindros": "5000",
+      "id": "137fa0d0-55f3-460c-80af-d619a12c5ac6",
+      "nome": "Carro do Homem Aranha",
+      "km_por_galao": "10",
+      "cilindros": "2000",
       "cavalos_de_forca": "200",
-      "peso": "1000000",
+      "peso": "5000",
       "aceleracao": "300",
-      "ano": "2050-01-01",
-      "origem": "Caverna do Bruce"
+      "ano": "2000-01-01",
+      "origem": "Marvel"
     }
   ],
   "marcas": [
     {
+      "id": "1",
       "nome": "Volkswagen",
       "origem": "DEU"
+    },
+    {
+      "id": "3",
+      "nome": "Marvel",
+      "origem": "DEU"
+    },
+    {
+      "id": "4",
+      "nome": "DC",
+      "origem": "DEU"
+    },
+    {
+      "id": "b04a1fe7-3b39-4816-a7db-4a32583b1330",
+      "nome": "Marca Nova",
+      "origem": "Nova"
     }
   ]
 }
