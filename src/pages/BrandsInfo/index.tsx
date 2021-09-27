@@ -32,15 +32,18 @@ export function BrandsInfo() {
 
   async function deleteItem() {
     try {
+      setIsLoading(true);
+      setShowModalConfirmDelete(false);
       await api.delete(`/brands/${idBrandToDelete}`);
 
       const brandsListFormatted = brands.filter(item => item.id !== idBrandToDelete);
       setBrands(brandsListFormatted);
       setBrandsFilteredList(brandsListFormatted);
       setIdBrandToDelete('');
-      setShowModalConfirmDelete(false);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 

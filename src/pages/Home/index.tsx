@@ -57,15 +57,18 @@ export function Home() {
 
   async function deleteItem() {
     try {
+      setShowModalConfirmDelete(false);
+      setIsLoading(true);
       await api.delete(`/cars/${carIdToDelete}`);
 
       const carsListFormatted = cars.filter(item => item.id !== carIdToDelete);
       setCars(carsListFormatted);
       setCarsFiltered(carsListFormatted);
       setCarIdToDelete('');
-      setShowModalConfirmDelete(false);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { uuid } from 'uuidv4';
 
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router";
 
 import { Form, Button } from "react-bootstrap";
+import { ButtonSave } from "../../components/Form/ButtonSave";
 import { Input } from "../../components/Form/Input";
 import api from "../../services/api";
 
@@ -11,7 +13,6 @@ import {
   Container,
   InputsContainer,
 } from './styles';
-import { useHistory } from "react-router";
 import { BrandProps } from "../../interfaces/types";
 import { FormData } from "./types";
 
@@ -21,6 +22,7 @@ export function FormBrand() {
     setValue,
     handleSubmit
   } = useForm();
+  const [isLoading, setLoading] = useState(false); 
   const [isEditing, setIsEditing] = useState(false);
   const [brandEditing, setBrandEditing] = useState<BrandProps>({} as BrandProps);
 
@@ -28,6 +30,7 @@ export function FormBrand() {
 
   async function handleRegisterBrand(formData: FormData) {
     try {
+      setLoading(true);
       if (isEditing) {
         await api.put(`/brands/${brandEditing.id}`, {
           id: brandEditing.id,
@@ -47,6 +50,8 @@ export function FormBrand() {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -90,13 +95,12 @@ export function FormBrand() {
           />
         </InputsContainer>
     
-        <Button 
+        <ButtonSave
+          isLoading={isLoading}
           variant="primary"
           style={{ marginRight: 8 }}
           onClick={handleSubmit(handleRegisterBrand)}
-        >
-          Salvar
-        </Button>
+        />
 
         <Button 
           variant="secondary"

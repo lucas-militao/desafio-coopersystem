@@ -17,6 +17,7 @@ import api from "../../services/api";
 import { Input } from '../../components/Form/Input';
 import { CarProps } from "../../interfaces/types";
 import { FormData } from "./types";
+import { ButtonSave } from "../../components/Form/ButtonSave";
 
 export function FormCar() {
   const {
@@ -24,6 +25,7 @@ export function FormCar() {
     setValue,
     handleSubmit
   } = useForm();
+  const [isLoading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [carEditing, setCarEditing] = useState<CarProps>({} as CarProps);
   
@@ -31,6 +33,7 @@ export function FormCar() {
 
   async function handleRegisterCar(formData: FormData) {
     try {
+      setLoading(true);
       if (isEditing) {
         await api.put(`/cars/${carEditing.id}`, {
           id: carEditing.id,
@@ -49,6 +52,8 @@ export function FormCar() {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -134,13 +139,12 @@ export function FormCar() {
           />
         </InputsContainer>
     
-        <Button 
+        <ButtonSave
+          isLoading={isLoading}
           variant="primary"
-          onClick={handleSubmit(handleRegisterCar)}
           style={{ marginRight: 8 }}
-        >
-          Salvar
-        </Button>
+          onClick={handleSubmit(handleRegisterCar)}
+        />
 
         <Button 
           variant="secondary"
