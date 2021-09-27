@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 
 import { CarList } from "../../components/CarList";
 import { ModalCarDetails } from "../../components/ModalCarDetails";
+import { ModalConfirmDelete } from "../../components/ModelConfirmDelete";
 import { SearchForm } from "../../components/SearchForm";
 import { CarProps } from "../../interfaces/types";
 
@@ -18,7 +19,9 @@ export function Home() {
   const [cars, setCars] = useState<CarProps[]>([] as CarProps[]);
   const [carsFiltered, setCarsFiltered] = useState<CarProps[]>([] as CarProps[]);
   const [carDetails, setCarDetails] = useState<CarProps>({} as CarProps);
-  const [showModal, setShowModal] = useState(false); 
+  const [showModalCarDetails, setShowModalCarDetails] = useState(false);
+  const [showModalConfirmDelete, setShowModalConfirmDelete] = useState(false);
+  const [carIdToDelete, setCarIdToDelete] = useState('');
 
   const history = useHistory();
 
@@ -27,12 +30,16 @@ export function Home() {
       cars.filter(item => item.id === id)[0]
     );
 
-    setShowModal(true);
+    setShowModalCarDetails(true);
   }
 
-  function handleHideModal() {
-    setShowModal(false);
+  function handleHideModalCarDetails() {
+    setShowModalCarDetails(false);
     setCarDetails({} as CarProps);
+  }
+
+  function handleHideModelConfirmDelete() {
+    setShowModalConfirmDelete(false);
   }
 
   function handleNavigateToEditFormCar(id: string) {
@@ -41,15 +48,22 @@ export function Home() {
     history.push('/formcar', carToEdit);
   }
 
-  async function handleRemoveItem(id: string) {
-    try {
-      await api.delete(`/cars/${id}`);
+  function handleRemoveItem(id: string) {
+    setShowModalConfirmDelete(true);
+    setCarIdToDelete(id);
+  }
 
-      const carsListFormatted = cars.filter(item => item.id !== id);
+  async function deleteItem() {
+    try {
+      await api.delete(`/cars/${carIdToDelete}`);
+
+      const carsListFormatted = cars.filter(item => item.id !== carIdToDelete);
       setCars(carsListFormatted);
       setCarsFiltered(carsListFormatted);
+      setCarIdToDelete('');
+      setShowModalConfirmDelete(false);
     } catch (error) {
-      console.log(error);
+      console.log('');
     }
   }
 
@@ -98,8 +112,14 @@ export function Home() {
 
       <ModalCarDetails
         car={carDetails}
-        showModal={showModal}
-        hideModal={handleHideModal}
+        showModal={showModalCarDetails}
+        hideModal={handleHideModalCarDetails}
+      />
+
+      <ModalConfirmDelete
+        showModal={showModalConfirmDelete}
+        hideModal={handleHideModelConfirmDelete}
+        deleteItem={deleteItem}
       />
     </Container>
   )
