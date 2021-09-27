@@ -1,5 +1,4 @@
-export interface CarProps {
-  id: string;
+export interface FormData {
   name: string;
   km_per_gallon: number;
   cylinders: number;
@@ -7,11 +6,5 @@ export interface CarProps {
   weight: number;
   acceleration: number;
   year: string;
-  origin: string;
-}
-
-export interface BrandProps {
-  id: string;
-  name: string;
   origin: string;
 }

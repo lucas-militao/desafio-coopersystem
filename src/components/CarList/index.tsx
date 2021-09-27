@@ -1,28 +1,10 @@
 import React from "react";
 import { Button, Table } from "react-bootstrap";
+import { Props } from "./types";
 
 import {
   Container
 } from './style';
-
-interface CarProps {
-  id: string;
-  nome: string;
-  km_por_galao: number;
-  cilindros: number;
-  cavalos_de_forca: number;
-  peso: number;
-  aceleracao: number;
-  ano: string;
-  origem: string;
-}
-
-interface Props {
-  data: CarProps[];
-  removeItem(id: string): Promise<void>;
-  editItem(id: string): void;
-  showCarDetails(id: string): void;
-}
 
 export function CarList({
   data,
@@ -51,9 +33,9 @@ export function CarList({
               return (
                 <tr key={item.id}>
                   <td>{index + 1}</td>
-                  <td>{item.nome}</td>
-                  <td>{item.origem}</td>
-                  <td>{new Date(item.ano).getFullYear()}</td>
+                  <td>{item.name}</td>
+                  <td>{item.origin}</td>
+                  <td>{new Date(item.year).getFullYear()}</td>
                   <td>
                     <Button 
                       variant="primary"

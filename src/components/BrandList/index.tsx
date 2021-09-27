@@ -5,18 +5,7 @@ import {
   Container
 } from './styles';
 
-interface BrandProps {
-  id: string;
-  nome: string;
-  origem: string;
-}
-
-interface Props {
-  data: BrandProps[];
-  deleteItem: (id: string) => Promise<void>;
-  showItemDetails: (id: string) => void;
-  editItem: (id: string) => void;
-}
+import { Props } from "./types";
 
 export function BrandList({
   data,
@@ -24,7 +13,6 @@ export function BrandList({
   showItemDetails,
   editItem
 }: Props) {
-
 
   return(
     <Container>
@@ -45,8 +33,8 @@ export function BrandList({
               return(
                 <tr key={item.id}>
                   <td>{index}</td>
-                  <td>{item.nome}</td>
-                  <td>{item.origem}</td>
+                  <td>{item.name}</td>
+                  <td>{item.origin}</td>
                   <td>
                     <Button
                       variant="primary"

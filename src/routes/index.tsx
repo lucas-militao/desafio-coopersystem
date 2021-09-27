@@ -14,7 +14,7 @@ export function Routes() {
       <Route path="/formcar" exact component={FormCar} />
       <Route path="/formcar/:car" exact component={FormCar} />
 
-      <Route path="/marcas" exact component={BrandsInfo} />
+      <Route path="/brands" exact component={BrandsInfo} />
       <Route path="/formbrand" exact component={FormBrand} />
       <Route path="/formbrand/:brand" exact component={FormBrand} />
     </Switch>

@@ -1,16 +1,6 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
-
-interface BrandProps {
-  nome: string;
-  origem: string;
-}
-
-interface Props {
-  brand: BrandProps;
-  showModal: boolean;
-  hideModal: () => void;
-}
+import { Props } from "./types";
 
 export function ModalBrandDetails({
   brand,
@@ -29,8 +19,8 @@ export function ModalBrandDetails({
       </Modal.Header>
 
       <Modal.Body>
-        <h3>{brand.nome}</h3>
-        <p><strong>Origem:</strong> {brand.origem}</p>
+        <h3>{brand.name}</h3>
+        <p><strong>Origem:</strong> {brand.origin}</p>
       </Modal.Body>
     </Modal>
   );

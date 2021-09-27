@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-
 import { uuid } from 'uuidv4';
 import { useForm } from 'react-hook-form';
-
-import { Input } from '../../components/Form/Input';
+import { useHistory } from "react-router";
 
 import { 
   Form,
@@ -15,19 +13,10 @@ import {
   InputsContainer,
 } from './styles';
 import api from "../../services/api";
-import { useHistory } from "react-router";
-import { CarProps } from "../../interfaces/types";
 
-interface FormData {
-  nome: string;
-  km_por_galao: number;
-  cilindros: number;
-  cavalos_de_forca: number;
-  peso: number;
-  aceleracao: number;
-  ano: string;
-  origem: string;
-}
+import { Input } from '../../components/Form/Input';
+import { CarProps } from "../../interfaces/types";
+import { FormData } from "./types";
 
 export function FormCar() {
   const {
@@ -43,7 +32,7 @@ export function FormCar() {
   async function handleRegisterCar(formData: FormData) {
     try {
       if (isEditing) {
-        await api.put(`/carros/${carEditing.id}`, {
+        await api.put(`/cars/${carEditing.id}`, {
           id: carEditing.id,
           ...formData
         });
@@ -51,7 +40,7 @@ export function FormCar() {
         history.push('/');
       } 
       else {
-        await api.post('/carros', {
+        await api.post('/cars', {
           id: uuid(),
           ...formData
         });
@@ -66,7 +55,7 @@ export function FormCar() {
   function handleCancelEditing() {
     setCarEditing({} as CarProps);
     setIsEditing(false);
-    history.push('/carros');
+    history.push('/');
   }
 
   useEffect(() => {
@@ -76,14 +65,14 @@ export function FormCar() {
         setIsEditing(true);
         setCarEditing(car);
 
-        setValue('nome', car.nome);
-        setValue('km_por_galao', car.km_por_galao);
-        setValue('cilindros', car.cilindros);
-        setValue('cavalos_de_forca', car.cavalos_de_forca);
-        setValue('peso', car.peso);
-        setValue('aceleracao', car.aceleracao);
-        setValue('ano', car.ano);
-        setValue('origem', car.origem);
+        setValue('name', car.name);
+        setValue('km_per_gallon', car.km_per_gallon);
+        setValue('cylinders', car.cylinders);
+        setValue('horsepower', car.horsepower);
+        setValue('weight', car.weight);
+        setValue('acceleration', car.acceleration);
+        setValue('year', car.year);
+        setValue('origin', car.origin);
       }
     }
 
@@ -96,49 +85,49 @@ export function FormCar() {
         <InputsContainer>
           <Input
             title="Nome"
-            name="nome"
+            name="name"
             control={control}
             type="text"
           />
           <Input
             title="Quilômetros por galão"
-            name="km_por_galao"
+            name="km_per_gallon"
             control={control}
             type="number"
           />
           <Input
             title="Quantidade de cilindros"
-            name="cilindros"
+            name="cylinders"
             control={control}
             type="number"
           />
           <Input
             title="Quantidade de cavalos de força"
-            name="cavalos_de_forca"
+            name="horsepower"
             control={control}
             type="number"
           />
           <Input
             title="Peso do carro"
-            name="peso"
+            name="weight"
             control={control}
             type="number"
           />
           <Input
             title="Aceleração"
-            name="aceleracao"
+            name="acceleration"
             control={control}
             type="number"
           />
           <Input
             title="Ano do carro"
-            name="ano"
+            name="year"
             control={control}
             type="date"
           />
           <Input
             title="Origem"
-            name="origem"
+            name="origin"
             control={control}
             type="text"
             placeholder="Digite o nome do carro"

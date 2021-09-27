@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import { CarList } from "../../components/CarList";
 import { ModalCarDetails } from "../../components/ModalCarDetails";
 import { SearchForm } from "../../components/SearchForm";
+import { CarProps } from "../../interfaces/types";
 
 import api from "../../services/api";
 
@@ -11,23 +12,11 @@ import {
   Container,
 } from './styles';
 
-interface CarProps {
-  id: string;
-  nome: string;
-  km_por_galao: number;
-  cilindros: number;
-  cavalos_de_forca: number;
-  peso: number;
-  aceleracao: number;
-  ano: string;
-  origem: string;
-}
-
 type filterOptionsType = 'nome' | 'origem';
 
 export function Home() {
-  const [carros, setCarros] = useState<CarProps[]>([] as CarProps[]);
-  const [carrosFiltered, setCarrosFiltered] = useState<CarProps[]>([] as CarProps[]);
+  const [cars, setCars] = useState<CarProps[]>([] as CarProps[]);
+  const [carsFiltered, setCarsFiltered] = useState<CarProps[]>([] as CarProps[]);
   const [carDetails, setCarDetails] = useState<CarProps>({} as CarProps);
   const [showModal, setShowModal] = useState(false); 
 
@@ -35,7 +24,7 @@ export function Home() {
 
   function handleShowModalCarDetails(id: string) {
     setCarDetails(
-      carros.filter(item => item.id === id)[0]
+      cars.filter(item => item.id === id)[0]
     );
 
     setShowModal(true);
@@ -47,18 +36,18 @@ export function Home() {
   }
 
   function handleNavigateToEditFormCar(id: string) {
-    const car = carros.filter(carro => carro.id === id)[0];
+    const carToEdit = cars.filter(car => car.id === id)[0];
 
-    history.push('/formcar', car);
+    history.push('/formcar', carToEdit);
   }
 
   async function handleRemoveItem(id: string) {
     try {
-      await api.delete(`/carros/${id}`);
+      await api.delete(`/cars/${id}`);
 
-      const carrosListFormatted = carros.filter(item => item.id !== id);
-      setCarros(carrosListFormatted);
-      setCarrosFiltered(carrosListFormatted);
+      const carsListFormatted = cars.filter(item => item.id !== id);
+      setCars(carsListFormatted);
+      setCarsFiltered(carsListFormatted);
     } catch (error) {
       console.log(error);
     }
@@ -66,26 +55,26 @@ export function Home() {
 
   function handleFilterList(filterOption: filterOptionsType, filterSearchInput: string) {
     if (filterOption === 'nome') {
-      setCarrosFiltered(carros.filter(carro => 
-        carro.nome.toLowerCase().includes(filterSearchInput.toLowerCase())));
+      setCarsFiltered(cars.filter(car => 
+        car.name.toLowerCase().includes(filterSearchInput.toLowerCase())));
 
     } else if (filterOption === 'origem') {
-      setCarrosFiltered(carros.filter(carro => 
-        carro.origem.toLowerCase() === filterSearchInput.toLowerCase()));
+      setCarsFiltered(cars.filter(car => 
+        car.origin.toLowerCase() === filterSearchInput.toLowerCase()));
 
     } 
     
     if(filterSearchInput === '') {
-      setCarrosFiltered(carros);
+      setCarsFiltered(cars);
     }
   }
 
   useEffect(() => {
     async function fetchCars() {
       try {
-        const response = await api.get('/carros');
-        setCarros(response.data);
-        setCarrosFiltered(response.data);
+        const response = await api.get('/cars');
+        setCars(response.data);
+        setCarsFiltered(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -101,7 +90,7 @@ export function Home() {
       />
       <br />
       <CarList 
-        data={carrosFiltered}
+        data={carsFiltered}
         removeItem={handleRemoveItem}
         editItem={handleNavigateToEditFormCar}
         showCarDetails={handleShowModalCarDetails}

@@ -4,6 +4,7 @@ import { BrandList } from "../../components/BrandList";
 import { ModalBrandDetails } from "../../components/ModalBrandDetails";
 import { SearchForm } from "../../components/SearchForm";
 import api from "../../services/api";
+import { BrandProps } from '../../interfaces/types';
 
 import {
   Container,
@@ -11,15 +12,9 @@ import {
 
 type filterOptionsType = 'nome' | 'origem';
 
-interface BrandProps {
-  id: string;
-  nome: string;
-  origem: string;
-}
-
 export function BrandsInfo() {
-  const [marcas, setMarcas] = useState<BrandProps[]>([] as BrandProps[]);
-  const [marcasFilteredList, setMarcasFilteredList] = useState<BrandProps[]>([] as BrandProps[]);
+  const [brands, setBrands] = useState<BrandProps[]>([] as BrandProps[]);
+  const [brandsFilteredList, setBrandsFilteredList] = useState<BrandProps[]>([] as BrandProps[]);
   const [brandDetails, setBrandDetails] = useState<BrandProps>({} as BrandProps);
   const [showModal, setShowModal] = useState(false);
 
@@ -27,11 +22,11 @@ export function BrandsInfo() {
 
   async function handleDeleteBrand(id: string) {
     try {
-      await api.delete(`/marcas/${id}`);
+      await api.delete(`/brands/${id}`);
 
-      const brandsListFormatted = marcas.filter(item => item.id !== id);
-      setMarcas(brandsListFormatted);
-      setMarcasFilteredList(brandsListFormatted);
+      const brandsListFormatted = brands.filter(item => item.id !== id);
+      setBrands(brandsListFormatted);
+      setBrandsFilteredList(brandsListFormatted);
     } catch (error) {
       console.log(error);
     }
@@ -39,26 +34,26 @@ export function BrandsInfo() {
 
   function handleFilterBrandsList(filterOption: filterOptionsType, filterSearchInput: string) {
     if (filterOption === 'nome') {
-      setMarcasFilteredList(
-        marcas.filter(marca => 
-          marca.nome.toLowerCase().includes(filterSearchInput.toLowerCase()))
+      setBrandsFilteredList(
+        brands.filter(brand => 
+          brand.name.toLowerCase().includes(filterSearchInput.toLowerCase()))
       );
     }
     else if (filterOption === 'origem') {
-      setMarcasFilteredList(
-        marcas.filter(marca => 
-          marca.origem.toLowerCase() === filterSearchInput.toLowerCase())
+      setBrandsFilteredList(
+        brands.filter(brand => 
+          brand.origin.toLowerCase() === filterSearchInput.toLowerCase())
       );
     }
 
     if(filterSearchInput === '') {
-      setMarcasFilteredList(marcas);
+      setBrandsFilteredList(brands);
     } 
   }
 
   function handleShowBrandDetails(id: string) {
     setBrandDetails(
-      marcas.filter(item => item.id === id)[0]
+      brands.filter(item => item.id === id)[0]
     );
     setShowModal(true);
   }
@@ -69,16 +64,16 @@ export function BrandsInfo() {
   }
 
   function handleNavigateToEditBrandForm(id: string) {
-    const brand = marcas.filter(item => item.id === id)[0];
+    const brand = brands.filter(item => item.id === id)[0];
 
     history.push('/formbrand', brand);
   }
 
   useEffect(() => {
     async function fetchBrands() {
-      const response = await api.get('/marcas');
-      setMarcas(response.data);
-      setMarcasFilteredList(response.data);
+      const response = await api.get('/brands');
+      setBrands(response.data);
+      setBrandsFilteredList(response.data);
     }
     fetchBrands();
   }, [])
@@ -90,7 +85,7 @@ export function BrandsInfo() {
       />
       <br />
       <BrandList 
-        data={marcasFilteredList}
+        data={brandsFilteredList}
         deleteItem={handleDeleteBrand}
         showItemDetails={handleShowBrandDetails}
         editItem={handleNavigateToEditBrandForm}

@@ -15,7 +15,7 @@ export function Menu() {
           </NavDropdown>
 
           <NavDropdown title="Marcas" id="basic-nav-dropdown">
-            <NavDropdown.Item href="/marcas">Lista das marcas</NavDropdown.Item>
+            <NavDropdown.Item href="/brands">Lista das brands</NavDropdown.Item>
             <NavDropdown.Item href="/formbrand">Registrar nova marca</NavDropdown.Item>
           </NavDropdown>
         </Navbar.Collapse>

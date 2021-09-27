@@ -5,11 +5,7 @@ import {
   Container
 } from './styles';
 
-type filterOptionsType = 'nome' | 'origem';
-
-interface Props {
-  filterList: (filterOption: filterOptionsType, filterSearchInput: string) => void;
-}
+import { filterOptionsType, Props } from "./types";
 
 export function SearchForm({
   filterList

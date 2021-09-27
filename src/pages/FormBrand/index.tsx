@@ -12,17 +12,8 @@ import {
   InputsContainer,
 } from './styles';
 import { useHistory } from "react-router";
-
-interface FormData {
-  nome: string;
-  origem: string;
-}
-
-interface BrandProps {
-  id: string;
-  nome: string;
-  origem: string;
-}
+import { BrandProps } from "../../interfaces/types";
+import { FormData } from "./types";
 
 export function FormBrand() {
   const {
@@ -38,21 +29,21 @@ export function FormBrand() {
   async function handleRegisterBrand(formData: FormData) {
     try {
       if (isEditing) {
-        await api.put(`/marcas/${brandEditing.id}`, {
+        await api.put(`/brands/${brandEditing.id}`, {
           id: brandEditing.id,
           ...formData
         });
         history.location.state = null;
-        history.push('/marcas');
+        history.push('/brands');
         setIsEditing(false);
       }
       else {
-        await api.post('/marcas', {
+        await api.post('/brands', {
           id: uuid(),
           ...formData
         })
         
-        history.push('/marcas');
+        history.push('/brands');
       }
     } catch (error) {
       console.log(error);
@@ -63,7 +54,7 @@ export function FormBrand() {
     setIsEditing(false)
     setBrandEditing({} as BrandProps);
     history.location.state = null;
-    history.push('/marcas');
+    history.push('/brands');
   }
 
   useEffect(() => {
@@ -73,8 +64,8 @@ export function FormBrand() {
         setIsEditing(true);
         setBrandEditing(brand);
 
-        setValue('nome', brand.nome);
-        setValue('origem', brand.origem);
+        setValue('name', brand.name);
+        setValue('origin', brand.origin);
       }
     }
 
@@ -87,13 +78,13 @@ export function FormBrand() {
         <InputsContainer>
           <Input
             title="Nome"
-            name="nome"
+            name="name"
             control={control}
             type="text"
           />
           <Input
             title="Origem"
-            name="origem"
+            name="origin"
             control={control}
             type="text"
           />

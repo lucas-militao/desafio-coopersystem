@@ -1,27 +1,38 @@
 {
-  "carros": [
+  "cars": [
     {
       "id": "63c018b9-6fff-4b66-932e-f902a4f2607a",
-      "nome": "Carro da mulher maravilha",
-      "km_por_galao": "2321",
-      "cilindros": "1312",
-      "cavalos_de_forca": "13",
-      "peso": "123",
-      "aceleracao": "12312",
-      "ano": "2021-05-28",
-      "origem": "Teste"
-    }
-  ],
-  "marcas": [
-    {
-      "id": "1",
-      "nome": "Gol",
-      "origem": "DEU"
+      "name": "Carro da mulher maravilha",
+      "km_per_gallon": "2321",
+      "cylinders": "1312",
+      "horsepower": "13",
+      "weight": "123",
+      "acceleration": "12312",
+      "year": "2021-05-28",
+      "origin": "Teste"
     },
     {
-      "id": "b04a1fe7-3b39-4816-a7db-4a32583b1330",
-      "nome": "Marca Nova",
-      "origem": "Nova"
+      "id": "d5c62ca2-aa5e-4340-b413-13e2f8a9f3e1",
+      "name": "Carro",
+      "km_per_gallon": "1212",
+      "cylinders": "1212",
+      "horsepower": "1212",
+      "weight": "2121",
+      "acceleration": "1212",
+      "year": "1995-12-23",
+      "origin": "Teste 2"
+    }
+  ],
+  "brands": [
+    {
+      "id": "1",
+      "name": "Gol",
+      "origin": "DEU"
+    },
+    {
+      "id": "2",
+      "name": "Gol",
+      "origin": "DEU"
     }
   ]
 }

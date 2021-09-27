@@ -1,22 +1,16 @@
-import React, { InputHTMLAttributes } from "react";
+import React from "react";
 
-import { Control, Controller } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 import { 
   Form, 
-  FormControl, 
-  FormControlProps 
+  FormControl 
 } from "react-bootstrap";
 
 import {
   Container
 } from './styles';
-
-interface Props extends FormControlProps{
-  control: Control;
-  name: string;
-  title?: string;
-}
+import { Props } from "./types";
 
 export function Input({
   control,
