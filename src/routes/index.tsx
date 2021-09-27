@@ -11,12 +11,12 @@ export function Routes() {
   return(
     <Switch>
       <Route path="/" exact component={Home} />
-      <Route path="/formcar" exact component={FormCar} />
-      <Route path="/formcar/:car" exact component={FormCar} />
+      <Route path="/register" exact component={FormCar} />
+      <Route path="/register/:car" exact component={FormCar} />
 
       <Route path="/brands" exact component={BrandsInfo} />
-      <Route path="/formbrand" exact component={FormBrand} />
-      <Route path="/formbrand/:brand" exact component={FormBrand} />
+      <Route path="/brands/register" exact component={FormBrand} />
+      <Route path="/brands/register/:brand" exact component={FormBrand} />
     </Switch>
   );
 };

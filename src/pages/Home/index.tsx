@@ -47,7 +47,7 @@ export function Home() {
   function handleNavigateToEditFormCar(id: string) {
     const carToEdit = cars.filter(car => car.id === id)[0];
 
-    history.push('/formcar', carToEdit);
+    history.push('/register', carToEdit);
   }
 
   function handleDeleteCar(id: string) {

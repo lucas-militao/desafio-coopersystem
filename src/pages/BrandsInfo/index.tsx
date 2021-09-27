@@ -83,7 +83,7 @@ export function BrandsInfo() {
   function handleNavigateToEditBrandForm(id: string) {
     const brand = brands.filter(item => item.id === id)[0];
 
-    history.push('/formbrand', brand);
+    history.push('/brands/register', brand);
   }
 
   useEffect(() => {
