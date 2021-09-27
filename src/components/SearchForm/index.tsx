@@ -15,45 +15,39 @@ export function SearchForm({
   
   return(
     <Container>
-        <Row className="align-items-center">
-          <Col>
-            <Form.Group>
-              <Form.Label>Filtro:</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                placeholder="Digite sua pesquisa"
-                value={filterSearchInput}
-                onChange={(e) => setFilterSearchInput(e.currentTarget.value)}
-              />
-            </Form.Group>
-          </Col>
+      <Form.Group as={Row} className="mb-3">
+        <Form.Label column sm={1}>Filtro:</Form.Label>
+        <Col sm={8}>
+          <Form.Control
+            required
+            type="text"
+            placeholder="Digite sua pesquisa"
+            value={filterSearchInput}
+            onChange={(e) => setFilterSearchInput(e.currentTarget.value)}
+          />
+        </Col>
+      </Form.Group>
 
-          <Col>
-            <Form.Check
-              type="radio"
-              label="Nome"
-              name="filterOption"
-              value="nome"
-              onChange={e => setFilterOption(e.currentTarget.value as filterOptionsType)}
-              defaultChecked
-            />
-            
-            <Form.Check
-              type="radio"
-              label="Origem"
-              name="filterOption"
-              value="origem"
-              onChange={e => setFilterOption(e.currentTarget.value as filterOptionsType)}
-            />
-          </Col>
-
-          <Col>
-            <Button onClick={() => filterList(filterOption, filterSearchInput)}>
-              Filtrar
-            </Button>
-          </Col>
-        </Row>
+      <Form.Check
+        type="radio"
+        label="Nome"
+        name="filterOption"
+        value="nome"
+        onChange={e => setFilterOption(e.currentTarget.value as filterOptionsType)}
+        defaultChecked
+      />
+          
+      <Form.Check
+        type="radio"
+        label="Origem"
+        name="filterOption"
+        value="origem"
+        onChange={e => setFilterOption(e.currentTarget.value as filterOptionsType)}
+      />
+      <br />
+      <Button onClick={() => filterList(filterOption, filterSearchInput)}>
+        Filtrar
+      </Button>
     </Container>
   );
 }
