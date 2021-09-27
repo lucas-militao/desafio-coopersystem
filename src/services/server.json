@@ -1,17 +1,6 @@
 {
   "cars": [
     {
-      "id": "63c018b9-6fff-4b66-932e-f902a4f2607a",
-      "name": "Carro da mulher maravilha",
-      "km_per_gallon": "2321",
-      "cylinders": "1312",
-      "horsepower": "13",
-      "weight": "123",
-      "acceleration": "12312",
-      "year": "2021-05-28",
-      "origin": "Teste"
-    },
-    {
       "id": "d5c62ca2-aa5e-4340-b413-13e2f8a9f3e1",
       "name": "Carro",
       "km_per_gallon": "1212",

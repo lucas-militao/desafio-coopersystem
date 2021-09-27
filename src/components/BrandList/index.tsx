@@ -16,12 +16,13 @@ export function BrandList({
 
   return(
     <Container>
-      <Table striped bordered hover responsive="md">
+      <Table striped bordered hover responsive>
         <thead>
           <tr>
             <th>#</th>
             <th>Nome</th>
             <th>Origem</th>
+            <th></th>
             <th></th>
             <th></th>
           </tr>
