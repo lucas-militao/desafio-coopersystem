@@ -33,7 +33,7 @@ export function BrandList({
             data.map((item, index) => {
               return(
                 <tr key={item.id}>
-                  <td>{index}</td>
+                  <td>{index + 1}</td>
                   <td>{item.name}</td>
                   <td>{item.origin}</td>
                   <td>
@@ -54,7 +54,7 @@ export function BrandList({
                   </td>
                   <td>
                     <Button 
-                      variant="secondary"
+                      variant="danger"
                       onClick={() => {deleteItem(item.id)}}
                     >
                       Excluir

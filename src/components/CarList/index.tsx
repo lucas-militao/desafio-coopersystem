@@ -55,7 +55,7 @@ export function CarList({
                   </td>
                   <td>
                     <Button 
-                      variant="secondary"
+                      variant="danger"
                       onClick={() => removeItem(item.id)}
                     >
                       Excluir
