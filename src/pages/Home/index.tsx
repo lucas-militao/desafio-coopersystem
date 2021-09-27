@@ -48,7 +48,7 @@ export function Home() {
     history.push('/formcar', carToEdit);
   }
 
-  function handleRemoveItem(id: string) {
+  function handleDeleteCar(id: string) {
     setShowModalConfirmDelete(true);
     setCarIdToDelete(id);
   }
@@ -63,7 +63,7 @@ export function Home() {
       setCarIdToDelete('');
       setShowModalConfirmDelete(false);
     } catch (error) {
-      console.log('');
+      console.log(error);
     }
   }
 
@@ -105,7 +105,7 @@ export function Home() {
       <br />
       <CarList 
         data={carsFiltered}
-        removeItem={handleRemoveItem}
+        removeItem={handleDeleteCar}
         editItem={handleNavigateToEditFormCar}
         showCarDetails={handleShowModalCarDetails}
       />

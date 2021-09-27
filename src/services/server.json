@@ -14,13 +14,8 @@
   ],
   "brands": [
     {
-      "id": "2",
-      "name": "Marca 2",
-      "origin": "DEU"
-    },
-    {
       "id": "0b523fdc-1c19-4f71-9f81-b6f6fa33fb0a",
-      "name": "Marca 1",
+      "name": "Marca 5",
       "origin": "Teste"
     }
   ]

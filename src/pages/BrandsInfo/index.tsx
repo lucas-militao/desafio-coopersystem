@@ -9,6 +9,7 @@ import { BrandProps } from '../../interfaces/types';
 import {
   Container,
 } from './styles';
+import { ModalConfirmDelete } from "../../components/ModelConfirmDelete";
 
 type filterOptionsType = 'nome' | 'origem';
 
@@ -16,20 +17,33 @@ export function BrandsInfo() {
   const [brands, setBrands] = useState<BrandProps[]>([] as BrandProps[]);
   const [brandsFilteredList, setBrandsFilteredList] = useState<BrandProps[]>([] as BrandProps[]);
   const [brandDetails, setBrandDetails] = useState<BrandProps>({} as BrandProps);
-  const [showModal, setShowModal] = useState(false);
+  const [showModalBrandDetails, setShowModalBrandDetails] = useState(false);
+  const [idBrandToDelete, setIdBrandToDelete] = useState('');
+  const [showModalConfirmDelete, setShowModalConfirmDelete] = useState(false);
 
   const history = useHistory();
 
-  async function handleDeleteBrand(id: string) {
-    try {
-      await api.delete(`/brands/${id}`);
+  function handleDeleteBrand(id: string) {
+    setShowModalConfirmDelete(true);
+    setIdBrandToDelete(id);
+  }
 
-      const brandsListFormatted = brands.filter(item => item.id !== id);
+  async function deleteItem() {
+    try {
+      await api.delete(`/brands/${idBrandToDelete}`);
+
+      const brandsListFormatted = brands.filter(item => item.id !== idBrandToDelete);
       setBrands(brandsListFormatted);
       setBrandsFilteredList(brandsListFormatted);
+      setIdBrandToDelete('');
+      setShowModalConfirmDelete(false);
     } catch (error) {
       console.log(error);
     }
+  }
+
+  function handleHideModelConfirmDelete() {
+    setShowModalConfirmDelete(false);
   }
 
   function handleFilterBrandsList(filterOption: filterOptionsType, filterSearchInput: string) {
@@ -55,11 +69,11 @@ export function BrandsInfo() {
     setBrandDetails(
       brands.filter(item => item.id === id)[0]
     );
-    setShowModal(true);
+    setShowModalBrandDetails(true);
   }
 
-  function handleCloseModal() {
-    setShowModal(false);
+  function handleCloseModalBrandDetails() {
+    setShowModalBrandDetails(false);
     setBrandDetails({} as BrandProps);
   }
 
@@ -91,13 +105,18 @@ export function BrandsInfo() {
         editItem={handleNavigateToEditBrandForm}
       />
 
-      { showModal && 
-        <ModalBrandDetails 
-          brand={brandDetails}
-          showModal
-          hideModal={handleCloseModal}
-        /> 
-      }
+      <ModalBrandDetails 
+        brand={brandDetails}
+        showModal={showModalBrandDetails}
+        hideModal={handleCloseModalBrandDetails}
+      />
+
+      <ModalConfirmDelete
+        showModal={showModalConfirmDelete}
+        hideModal={handleHideModelConfirmDelete}
+        deleteItem={deleteItem}
+      />
+      
     </Container>
   );
 }
