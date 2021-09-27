@@ -10,6 +10,7 @@ import {
   Container,
 } from './styles';
 import { ModalConfirmDelete } from "../../components/ModelConfirmDelete";
+import { LoadingSpin } from "../../components/LoadingSpin";
 
 type filterOptionsType = 'nome' | 'origem';
 
@@ -20,6 +21,7 @@ export function BrandsInfo() {
   const [showModalBrandDetails, setShowModalBrandDetails] = useState(false);
   const [idBrandToDelete, setIdBrandToDelete] = useState('');
   const [showModalConfirmDelete, setShowModalConfirmDelete] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const history = useHistory();
 
@@ -85,9 +87,16 @@ export function BrandsInfo() {
 
   useEffect(() => {
     async function fetchBrands() {
-      const response = await api.get('/brands');
-      setBrands(response.data);
-      setBrandsFilteredList(response.data);
+      try {
+        setIsLoading(true);
+        const response = await api.get('/brands');
+        setBrands(response.data);
+        setBrandsFilteredList(response.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchBrands();
   }, [])
@@ -98,12 +107,16 @@ export function BrandsInfo() {
         filterList={handleFilterBrandsList}
       />
       <br />
-      <BrandList 
-        data={brandsFilteredList}
-        deleteItem={handleDeleteBrand}
-        showItemDetails={handleShowBrandDetails}
-        editItem={handleNavigateToEditBrandForm}
-      />
+      {
+        isLoading ?
+        <LoadingSpin /> :
+        <BrandList 
+          data={brandsFilteredList}
+          deleteItem={handleDeleteBrand}
+          showItemDetails={handleShowBrandDetails}
+          editItem={handleNavigateToEditBrandForm}
+        />
+      }
 
       <ModalBrandDetails 
         brand={brandDetails}

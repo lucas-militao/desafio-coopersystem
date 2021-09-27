@@ -12,11 +12,13 @@ import api from "../../services/api";
 import {
   Container,
 } from './styles';
+import { LoadingSpin } from "../../components/LoadingSpin";
 
 type filterOptionsType = 'nome' | 'origem';
 
 export function Home() {
   const [cars, setCars] = useState<CarProps[]>([] as CarProps[]);
+  const [isLoading, setIsLoading] = useState(false);
   const [carsFiltered, setCarsFiltered] = useState<CarProps[]>([] as CarProps[]);
   const [carDetails, setCarDetails] = useState<CarProps>({} as CarProps);
   const [showModalCarDetails, setShowModalCarDetails] = useState(false);
@@ -86,11 +88,14 @@ export function Home() {
   useEffect(() => {
     async function fetchCars() {
       try {
+        setIsLoading(true);
         const response = await api.get('/cars');
         setCars(response.data);
         setCarsFiltered(response.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -103,12 +108,16 @@ export function Home() {
         filterList={handleFilterList}
       />
       <br />
-      <CarList 
-        data={carsFiltered}
-        removeItem={handleDeleteCar}
-        editItem={handleNavigateToEditFormCar}
-        showCarDetails={handleShowModalCarDetails}
-      />
+      {
+        isLoading ?
+          <LoadingSpin /> :
+          <CarList 
+            data={carsFiltered}
+            removeItem={handleDeleteCar}
+            editItem={handleNavigateToEditFormCar}
+            showCarDetails={handleShowModalCarDetails}
+          />
+      }
 
       <ModalCarDetails
         car={carDetails}
