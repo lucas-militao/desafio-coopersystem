@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { uuid } from 'uuidv4';
 
 import { useForm } from "react-hook-form";
@@ -18,26 +18,68 @@ interface FormData {
   origem: string;
 }
 
+interface BrandProps {
+  id: string;
+  nome: string;
+  origem: string;
+}
+
 export function FormBrand() {
   const {
     control,
+    setValue,
     handleSubmit
   } = useForm();
+  const [isEditing, setIsEditing] = useState(false);
+  const [brandEditing, setBrandEditing] = useState<BrandProps>({} as BrandProps);
 
   const history = useHistory();
 
   async function handleRegisterBrand(formData: FormData) {
     try {
-      await api.post('/marcas', {
-        id: uuid(),
-        ...formData
-      })
-      
-      history.push('/marcas');
+      if (isEditing) {
+        await api.put(`/marcas/${brandEditing.id}`, {
+          id: brandEditing.id,
+          ...formData
+        });
+        history.location.state = null;
+        history.push('/marcas');
+        setIsEditing(false);
+      }
+      else {
+        await api.post('/marcas', {
+          id: uuid(),
+          ...formData
+        })
+        
+        history.push('/marcas');
+      }
     } catch (error) {
-      
+      console.log(error);
     }
   }
+
+  function handleCancel() {
+    setIsEditing(false)
+    setBrandEditing({} as BrandProps);
+    history.location.state = null;
+    history.push('/marcas');
+  }
+
+  useEffect(() => {
+    function updateBrandInfo() {
+      const brand = history.location.state as BrandProps;
+      if (!!brand) {
+        setIsEditing(true);
+        setBrandEditing(brand);
+
+        setValue('nome', brand.nome);
+        setValue('origem', brand.origem);
+      }
+    }
+
+    updateBrandInfo();
+  })
 
   return (
     <Container>
@@ -51,7 +93,7 @@ export function FormBrand() {
           />
           <Input
             title="Origem"
-            name="origin"
+            name="origem"
             control={control}
             type="text"
           />
@@ -67,6 +109,7 @@ export function FormBrand() {
 
         <Button 
           variant="secondary"
+          onClick={handleCancel}
         >
           Cancel
         </Button>

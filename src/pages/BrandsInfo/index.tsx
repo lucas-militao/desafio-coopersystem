@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import { BrandList } from "../../components/BrandList";
 import { ModalBrandDetails } from "../../components/ModalBrandDetails";
 import { SearchForm } from "../../components/SearchForm";
@@ -20,7 +21,9 @@ export function BrandsInfo() {
   const [marcas, setMarcas] = useState<BrandProps[]>([] as BrandProps[]);
   const [marcasFilteredList, setMarcasFilteredList] = useState<BrandProps[]>([] as BrandProps[]);
   const [brandDetails, setBrandDetails] = useState<BrandProps>({} as BrandProps);
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
+
+  const history = useHistory();
 
   async function handleDeleteBrand(id: string) {
     try {
@@ -28,7 +31,7 @@ export function BrandsInfo() {
 
       const brandsListFormatted = marcas.filter(item => item.id !== id);
       setMarcas(brandsListFormatted);
-
+      setMarcasFilteredList(brandsListFormatted);
     } catch (error) {
       console.log(error);
     }
@@ -65,6 +68,12 @@ export function BrandsInfo() {
     setBrandDetails({} as BrandProps);
   }
 
+  function handleNavigateToEditBrandForm(id: string) {
+    const brand = marcas.filter(item => item.id === id)[0];
+
+    history.push('/formbrand', brand);
+  }
+
   useEffect(() => {
     async function fetchBrands() {
       const response = await api.get('/marcas');
@@ -84,6 +93,7 @@ export function BrandsInfo() {
         data={marcasFilteredList}
         deleteItem={handleDeleteBrand}
         showItemDetails={handleShowBrandDetails}
+        editItem={handleNavigateToEditBrandForm}
       />
 
       { showModal && 

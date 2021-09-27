@@ -16,20 +16,9 @@ import {
 } from './styles';
 import api from "../../services/api";
 import { useHistory } from "react-router";
+import { CarProps } from "../../interfaces/types";
 
 interface FormData {
-  nome: string;
-  km_por_galao: number;
-  cilindros: number;
-  cavalos_de_forca: number;
-  peso: number;
-  aceleracao: number;
-  ano: string;
-  origem: string;
-}
-
-interface CarProps {
-  id: string;
   nome: string;
   km_por_galao: number;
   cilindros: number;
@@ -47,7 +36,7 @@ export function FormCar() {
     handleSubmit
   } = useForm();
   const [isEditing, setIsEditing] = useState(false);
-  const [carEditing, setCarEditing] = useState<CarProps>({} as CarProps)
+  const [carEditing, setCarEditing] = useState<CarProps>({} as CarProps);
   
   const history = useHistory();
 
@@ -59,14 +48,15 @@ export function FormCar() {
           ...formData
         });
         history.location.state = null;
-        history.goBack();
-      } else {
+        history.push('/');
+      } 
+      else {
         await api.post('/carros', {
           id: uuid(),
           ...formData
         });
 
-        history.goBack();
+        history.push('/');
       }
     } catch (error) {
       console.log(error);

@@ -1,31 +1,21 @@
 {
   "carros": [
     {
-      "id": "137fa0d0-55f3-460c-80af-d619a12c5ac6",
-      "nome": "Carro do Homem Aranha",
-      "km_por_galao": "10",
-      "cilindros": "2000",
-      "cavalos_de_forca": "200",
-      "peso": "5000",
-      "aceleracao": "300",
-      "ano": "2000-01-01",
-      "origem": "Marvel"
+      "id": "63c018b9-6fff-4b66-932e-f902a4f2607a",
+      "nome": "Carro da mulher maravilha",
+      "km_por_galao": "2321",
+      "cilindros": "1312",
+      "cavalos_de_forca": "13",
+      "peso": "123",
+      "aceleracao": "12312",
+      "ano": "2021-05-28",
+      "origem": "Teste"
     }
   ],
   "marcas": [
     {
       "id": "1",
-      "nome": "Volkswagen",
-      "origem": "DEU"
-    },
-    {
-      "id": "3",
-      "nome": "Marvel",
-      "origem": "DEU"
-    },
-    {
-      "id": "4",
-      "nome": "DC",
+      "nome": "Gol",
       "origem": "DEU"
     },
     {

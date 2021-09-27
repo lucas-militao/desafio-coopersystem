@@ -15,12 +15,14 @@ interface Props {
   data: BrandProps[];
   deleteItem: (id: string) => Promise<void>;
   showItemDetails: (id: string) => void;
+  editItem: (id: string) => void;
 }
 
 export function BrandList({
   data,
   deleteItem,
-  showItemDetails
+  showItemDetails,
+  editItem
 }: Props) {
 
 
@@ -56,7 +58,7 @@ export function BrandList({
                   <td>
                     <Button
                       variant="primary"
-                      onClick={() => {}}
+                      onClick={() => {editItem(item.id)}}
                     >
                         Editar
                     </Button>

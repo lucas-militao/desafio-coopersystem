@@ -50,7 +50,7 @@ export function CarList({
             data.map((item, index) => {
               return (
                 <tr key={item.id}>
-                  <td>{index}</td>
+                  <td>{index + 1}</td>
                   <td>{item.nome}</td>
                   <td>{item.origem}</td>
                   <td>{new Date(item.ano).getFullYear()}</td>

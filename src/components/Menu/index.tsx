@@ -1,17 +1,17 @@
 import React from "react";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Navbar, NavDropdown } from "react-bootstrap";
 
 export function Menu() {
 
   return(
-    <Navbar bg="light" >
+    <Navbar bg="light" fixed="top">
       <Container>
         <Navbar.Brand>Menu</Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav">
 
           <NavDropdown title="Carros" id="basic-nav-dropdown">
-            <NavDropdown.Item href="/carros">Lista dos carros</NavDropdown.Item>
-            <NavDropdown.Item href="/registercarros">Registrar novo carro</NavDropdown.Item>
+            <NavDropdown.Item href="/">Lista dos carros</NavDropdown.Item>
+            <NavDropdown.Item href="/formcar">Registrar novo carro</NavDropdown.Item>
           </NavDropdown>
 
           <NavDropdown title="Marcas" id="basic-nav-dropdown">
