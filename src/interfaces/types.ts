@@ -15,3 +15,5 @@ export interface BrandProps {
   name: string;
   origin: string;
 }
+
+export type filterOptionsType = 'nome' | 'origem'; 

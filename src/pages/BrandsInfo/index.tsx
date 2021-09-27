@@ -4,15 +4,13 @@ import { BrandList } from "../../components/BrandList";
 import { ModalBrandDetails } from "../../components/ModalBrandDetails";
 import { SearchForm } from "../../components/SearchForm";
 import api from "../../services/api";
-import { BrandProps } from '../../interfaces/types';
+import { BrandProps, filterOptionsType } from '../../interfaces/types';
 
 import {
   Container,
 } from './styles';
 import { ModalConfirmDelete } from "../../components/ModelConfirmDelete";
 import { LoadingSpin } from "../../components/LoadingSpin";
-
-type filterOptionsType = 'nome' | 'origem';
 
 export function BrandsInfo() {
   const [brands, setBrands] = useState<BrandProps[]>([] as BrandProps[]);

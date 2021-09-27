@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Col, Row, Button, Form } from "react-bootstrap";
+import { filterOptionsType } from "../../interfaces/types";
 
 import {
   Container
 } from './styles';
 
-import { filterOptionsType, Props } from "./types";
+import { Props } from "./types";
 
 export function SearchForm({
   filterList
